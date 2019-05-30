@@ -91,9 +91,9 @@ jobs:
           name: create-env.json
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              node dev-scripts/create-newman-env https://alcala.uport.me > env.json
+              node dev-scripts/create-newman-env https://alcala.uport.me 5 > env.json
             else
-              node dev-scripts/create-newman-env https://alcala.uport.space/`echo ${CIRCLE_BRANCH} | sed 's/\//-/g'` > env.json
+              node dev-scripts/create-newman-env https://alcala.uport.space/`echo ${CIRCLE_BRANCH} | sed 's/\//-/g'` 5 > env.json
             fi
       # Persist env.json
       - persist_to_workspace:

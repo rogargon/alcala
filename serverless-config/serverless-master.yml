@@ -12,6 +12,18 @@ provider:
   region: eu-west-3
   environment:
     BACKEND_RPC: ${ssm:/alcala/BACKEND_RPC~true}
+  vpc:
+    securityGroupIds:
+      - Fn::GetAtt: [VPCStaticIP, DefaultSecurityGroup]
+    subnetIds:
+      - Ref: SubnetPrivate
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - ec2:CreateNetworkInterface
+        - ec2:DeleteNetworkInterface
+        - ec2:DescribeNetworkInterfaces
+      Resource: '*'
 
 custom: 
   customDomain:
@@ -32,3 +44,6 @@ custom:
   
 functions:
   - ${file(serverless-config/functions.yml)}
+
+resources:
+  - ${file(serverless-config/resources.yml)}

@@ -23,6 +23,9 @@ provider:
         - ec2:CreateNetworkInterface
         - ec2:DeleteNetworkInterface
         - ec2:DescribeNetworkInterfaces
+        - ec2:allocateAddress
+        - ec2:CreateVpc
+        - ec2:CreateInternetGateway
       Resource: '*'
 
 custom: 

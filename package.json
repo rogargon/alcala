@@ -1,0 +1,83 @@
+{
+  "name": "alcala",
+  "version": "1.0.0",
+  "description": "Permissioned Network Access Control",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose --runInBand",
+    "coverage": "jest --coverage",
+    "tdd": "jest --watchAll",
+    "build": "./node_modules/.bin/tsc -p .",
+    "config::offline": "cp serverless-config/serverless-offline.yml ./serverless.yml",
+    "config::branch": "cp serverless-config/serverless-branch.yml ./serverless.yml",
+    "config::master": "cp serverless-config/serverless-master.yml ./serverless.yml",
+    "start": "npm run build && npm run config::offline && ./node_modules/.bin/slss offline --host 0.0.0.0 --port $PORT",
+    "test::e2e": "node dev-scripts/create-newman-env http://localhost:3000 5 > env.json && newman run e2e-tests/alcala.postman_collection.json -e env.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uport-project/alcala.git"
+  },
+  "author": "Andres Junge <andres.junge@consensys.net>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/uport-project/alcala/issues"
+  },
+  "homepage": "https://github.com/uport-project/alcala#readme",
+  "devDependencies": {
+    "@types/jest": "^24.0.12",
+    "aws-lambda": "^0.1.2",
+    "jest": "^24.8.0",
+    "jest-html-reporter": "^2.5.0",
+    "jest-junit": "^6.4.0",
+    "serverless-plugin-typescript": "^1.1.7",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "json-rpc-protocol": "^0.13.1",
+    "serverless": "^1.41.0",
+    "serverless-domain-manager": "^3.2.1",
+    "serverless-offline": "^4.1.4",
+    "serverless-plugin-aws-alerts": "^1.2.4"
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "diagnostics": {
+          "ignoreCodes": [
+            151001
+          ]
+        }
+      }
+    },
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
+    "testEnvironment": "node",
+    "reporters": [
+      "default",
+      "jest-junit",
+      [
+        "./node_modules/jest-html-reporter",
+        {
+          "pageTitle": "Test Report",
+          "outputPath": "./test-reports/jest-report.html"
+        }
+      ]
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "\\.(ts|tsx)$": "ts-jest"
+    },
+    "testRegex": "/__tests__/.*\\.(ts)$"
+  },
+  "jest-junit": {
+    "outputDirectory": "./test-results/jest/",
+    "outputName": "results.xml"
+  }
+}

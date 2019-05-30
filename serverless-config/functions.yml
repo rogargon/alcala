@@ -1,0 +1,8 @@
+activity:
+    handler: src/api_handler.rpc
+    timeout: 30 #Max (ApiGateway limitation)
+    events:
+    - http:
+        path: /rpc
+        method: post
+        cors: true

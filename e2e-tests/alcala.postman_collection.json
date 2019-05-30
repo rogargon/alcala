@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "d0c51df7-bec8-494e-93a4-706ee9fa6cf3",
+		"name": "alcala",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Empty body",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a020bfe1-97ea-4eb5-be6c-2da355d7fd8c",
+						"exec": [
+							"pm.test(\"response is 200\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							"",
+							"pm.test(\"response should be an error\", function () { ",
+							"    pm.response.to.be.error; ",
+							"});",
+							"",
+							"pm.test(\"message error\", function () {",
+							"    pm.expect(pm.response.json().error.message).to.eql('unknown error from the peer');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{alcalaUrl}}/rpc",
+					"host": [
+						"{{alcalaUrl}}"
+					],
+					"path": [
+						"rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "net_version",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a020bfe1-97ea-4eb5-be6c-2da355d7fd8c",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"response should be okay to process\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"});",
+							"",
+							"pm.test(\"id should be 1'\", function () {",
+							"    pm.expect(pm.response.json().id).to.eql(1);",
+							"});",
+							"pm.test(\"result should be networkId'\", function () {",
+							"    pm.expect(pm.response.json().result).to.eql(pm.environment.get(\"networkId\"));",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"net_version\",\n    \"params\": [],\n    \"id\": 1\n}"
+				},
+				"url": {
+					"raw": "{{alcalaUrl}}/rpc",
+					"host": [
+						"{{alcalaUrl}}"
+					],
+					"path": [
+						"rpc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

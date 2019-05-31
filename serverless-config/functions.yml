@@ -1,4 +1,4 @@
-activity:
+rpc:
     handler: src/api_handler.rpc
     timeout: 30 #Max (ApiGateway limitation)
     events:

@@ -10,6 +10,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   region: eu-west-3
+  stage: ${opt:stage}
   environment:
     BACKEND_RPC: ${ssm:/alcala/BACKEND_RPC~true}
   vpc:
@@ -23,9 +24,6 @@ provider:
         - ec2:CreateNetworkInterface
         - ec2:DeleteNetworkInterface
         - ec2:DescribeNetworkInterfaces
-        - ec2:allocateAddress
-        - ec2:CreateVpc
-        - ec2:CreateInternetGateway
       Resource: '*'
 
 custom: 

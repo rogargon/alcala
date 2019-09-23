@@ -16,8 +16,8 @@ First, to create the image and tag it `alcala:latest, execute the following comm
 docker build . --tag alcala
 ```
 
-Then, to run the image with `BACKEND_URL` `http://back.end/rpc` and available at host port `8080`:
+Then, run a container named `alcala` with the generated image and `BACKEND_URL` `http://back.end/rpc`, available at host port `8080`:
 
 ```bash
-docker run -p 3000:8080 -e BACKEND_RPC=http://back.end/rpc alcala
+docker run -p 8080:3000 -e BACKEND_RPC=http://back.end/rpc --name alcala alcala
 ```
